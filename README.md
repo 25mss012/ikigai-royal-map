@@ -5,7 +5,7 @@
 A private, practical, accessible web companion inspired by general themes associated with Ikigai (purpose, flow, community, moderation, movement, mindfulness, resilience). **No account. No tracking. No backend.**
 
 - **Repo:** https://github.com/25mss012/ikigai-royal-map
-- **Live:** (fill after Vercel deploy — import the repo at vercel.com/new)
+- **Live:** https://ikigai-royal-map.vercel.app
 
 ## Stack
 
