@@ -7,7 +7,7 @@ export default function AccessibilityPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <SectionHeading kicker="Accessibility" title="Comfortable for everyone" desc="Keyboard, screen reader, touch, and motion friendly." />
-      <Card>
+      <Card data-testid="accessibility-settings">
         <h2 className="font-bold">Display settings (saved in this browser)</h2>
         <div className="mt-4 grid gap-3">
           <label className="flex items-center justify-between gap-3 text-sm">Reduce motion<input type="checkbox" checked={prefs.reducedMotion} onChange={(e) => setPrefs({ reducedMotion: e.target.checked })} className="size-6" /></label>

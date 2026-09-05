@@ -64,7 +64,7 @@ export default function AssessmentPage() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button onClick={() => setStep({ kind: "q", index: 0 })}>{answeredCount > 0 ? `Continue (${answeredCount}/40)` : "Start"}</Button>
+          <Button data-testid="assessment-start" onClick={() => setStep({ kind: "q", index: 0 })}>{answeredCount > 0 ? `Continue (${answeredCount}/40)` : "Start"}</Button>
           {answeredCount > 0 && <Button variant="secondary" onClick={() => { setAnswers({}); setStep({ kind: "q", index: 0 }); }}>Restart</Button>}
         </div>
         <div className="mt-6"><Notice>“I am not sure” is not scored as zero — it marks the question incomplete and your result provisional.</Notice></div>
@@ -94,7 +94,7 @@ export default function AssessmentPage() {
         </ul>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button variant="secondary" onClick={() => setStep({ kind: "q", index: 0 })}>Back to questions</Button>
-          <Button onClick={submit}>See my result</Button>
+          <Button data-testid="assessment-submit" onClick={submit}>See my result</Button>
         </div>
       </div>
     );
@@ -136,10 +136,10 @@ export default function AssessmentPage() {
           })}
         </div>
         <div className="mt-6 flex items-center justify-between gap-3">
-          <Button variant="secondary" disabled={i === 0} onClick={() => setStep({ kind: "q", index: i - 1 })}>Back</Button>
+          <Button data-testid="assessment-previous" variant="secondary" disabled={i === 0} onClick={() => setStep({ kind: "q", index: i - 1 })}>Back</Button>
           {i < 39
-            ? <Button onClick={() => setStep({ kind: "q", index: i + 1 })}>Next</Button>
-            : <Button onClick={() => setStep({ kind: "review" })}>Review</Button>}
+            ? <Button data-testid="assessment-next" onClick={() => setStep({ kind: "q", index: i + 1 })}>Next</Button>
+            : <Button data-testid="assessment-review" onClick={() => setStep({ kind: "review" })}>Review</Button>}
         </div>
       </Card>
       <div className="mt-4 flex justify-between text-sm">

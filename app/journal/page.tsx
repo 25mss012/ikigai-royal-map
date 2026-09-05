@@ -74,7 +74,7 @@ export default function JournalPage() {
           <label className="mt-2 block text-sm">Gratitude (optional)<input value={form.gratitude} onChange={(e) => setForm({ ...form, gratitude: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
           <label className="mt-2 block text-sm">Challenge (optional)<input value={form.challenge} onChange={(e) => setForm({ ...form, challenge: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
           {error && <p role="alert" className="mt-2 text-sm text-error">{error}</p>}
-          <div className="mt-3 flex gap-2"><Button onClick={save}>{editing ? "Update" : "Save entry"}</Button>{editing && <Button variant="secondary" onClick={() => { setEditing(null); setForm({ date: todayISO(), mood: 3, energy: 3, purpose: 3, text: "", tags: "", activity: "", gratitude: "", challenge: "" }); }}>Cancel</Button>}</div>
+          <div className="mt-3 flex gap-2"><Button data-testid="journal-save" onClick={save}>{editing ? "Update" : "Save entry"}</Button>{editing && <Button variant="secondary" onClick={() => { setEditing(null); setForm({ date: todayISO(), mood: 3, energy: 3, purpose: 3, text: "", tags: "", activity: "", gratitude: "", challenge: "" }); }}>Cancel</Button>}</div>
         </Card>
 
         <div className="lg:col-span-3">

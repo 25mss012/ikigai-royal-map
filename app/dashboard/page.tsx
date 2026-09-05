@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { STORAGE_KEYS } from "@/lib/constants";
-import { asArray, clearAllIkigai, exportAll, getJSON, getValidated, isAssessmentResultLike, storageAvailable } from "@/lib/storage";
+import { asArray, clearAllIkigai, getJSON, getValidated, isAssessmentResultLike, storageAvailable } from "@/lib/storage";
+import { collectExport } from "@/lib/portability";
+import { ImportDialog } from "@/components/import-dialog";
 import { planProgress } from "@/data/plan-templates";
 import { REFLECTION_PROMPTS_EN } from "@/data/reflection-prompts";
 import { downloadJSON } from "@/lib/export-data";
@@ -18,7 +20,9 @@ export default function DashboardPage() {
   const [ready, setReady] = useState(false);
   const [privateOk, setPrivateOk] = useState(true);
 
-  useEffect(() => {
+  useEffect(() => { load(); }, []);
+
+  function load() {
     setResult(getValidated<AssessmentResult | null>(STORAGE_KEYS.result, null, (v): v is AssessmentResult | null => v === null || isAssessmentResultLike(v)));
     setFlow(asArray<FlowEntry>(getJSON<unknown>(STORAGE_KEYS.flow, [])));
     setJournal(asArray<JournalEntry>(getJSON<unknown>(STORAGE_KEYS.journal, [])));
@@ -26,7 +30,7 @@ export default function DashboardPage() {
     setCircle(asArray<CircleEntry>(getJSON<unknown>(STORAGE_KEYS.circle, [])));
     setPrivateOk(storageAvailable());
     setReady(true);
-  }, []);
+  }
 
   if (!ready) return <div className="mx-auto max-w-5xl px-4 py-12"><p>Loading…</p></div>;
   const hasAny = result || flow.length || journal.length || plan || circle.length;
@@ -79,10 +83,14 @@ export default function DashboardPage() {
         </Card>
         <Card>
           <h2 className="font-bold">Privacy</h2>
+          <p className="mt-1 text-sm text-[var(--muted)]">Your data is stored locally in this browser. It is not uploaded by this application. Export your data before clearing browser storage or changing devices.</p>
           <p className="mt-1 text-sm text-[var(--muted)]">Storage: {privateOk ? "browser localStorage available" : "fallback memory (export often — browser blocks storage)"} · No account · No tracking.</p>
+          <div className="mt-3">
+            <ImportDialog onImported={load} />
+          </div>
           <div className="mt-2 flex flex-wrap gap-2">
-            <button className="rounded-full border border-[var(--border)] px-4 py-2 text-sm" onClick={() => downloadJSON("ikigai-all-data.json", exportAll())}>Export all data</button>
-            <button className="rounded-full border border-error px-4 py-2 text-sm text-error" onClick={() => { if (confirm("Delete ALL local data? This cannot be undone. Export first if needed.")) { clearAllIkigai(); location.reload(); } }}>Delete all data</button>
+            <button data-testid="export-all" className="rounded-full border border-[var(--border)] px-4 py-2 text-sm" onClick={() => downloadJSON("ikigai-export.json", collectExport())} aria-label="Export all data as a JSON file">Export all data</button>
+            <button data-testid="delete-all" className="rounded-full border border-error px-4 py-2 text-sm text-error" onClick={() => { if (confirm("Delete ALL local data? This cannot be undone. Export first if needed.")) { clearAllIkigai(); location.reload(); } }}>Delete all data</button>
           </div>
         </Card>
       </div>

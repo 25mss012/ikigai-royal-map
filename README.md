@@ -38,16 +38,40 @@ npm install
 npm run dev      # http://localhost:3000
 npm run lint
 npm run typecheck  # tsc --noEmit
+npm run test:unit
 npm run build
 npm run start
 ```
 
+## Browser (E2E) testing
+
+Playwright + Chromium. Tests live in `e2e/` (isolated storage per test, fake data only); migration/portability unit tests in `tests/unit/` (`node:test` + `tsx`).
+
+```bash
+npm run test:e2e:install  # one-time Chromium download
+npm run build             # E2E runs against the production build
+npm run test:e2e          # headless run (37 tests)
+npm run test:e2e:ui       # interactive UI mode
+npm run test:e2e:report   # open the last HTML report
+```
+
+CI: `quality.yml` runs secret scan → lint → typecheck → unit → build; `e2e.yml` installs Chromium with system deps, builds, and runs the full browser suite (reports uploaded only on failure).
+
 ## Data storage
 
-Keys `ikigai.v1.*` in `localStorage` (answers, result, flow, journal, plan, circle, prefs). In-memory fallback if blocked. Survives refresh; per-device.
+Keys `ikigai.v1.*` in `localStorage` (answers, result, flow, journal, plan, circle, prefs, plus `ikigai.v1.meta` schema version). In-memory fallback if blocked. Survives refresh; per-device. Corrupted records are reset individually (with a timestamped backup at `ikigai.v1.backup.*`); valid data is never wiped by migration — see `lib/migrate.ts`.
 
-- **Export:** Results JSON · Flow JSON · Journal JSON/Markdown · Dashboard “Export all data”.
+- **Export:** Results JSON · Flow JSON · Journal JSON/Markdown · Dashboard versioned export (`ikigai-export.json`).
+- **Import:** Dashboard → Import from file (validated, previewed, confirmed — see below).
 - **Delete:** per-item deletes with confirm · Journal “Clear all” · Plan delete · Dashboard “Delete all data”.
+
+## Data portability and recovery
+
+- **Format:** `{ "format": "ikigai-export", "version": 1, "exportedAt, appVersion, data": { assessment, results, flow, plan, journal, circle, preferences } }` — your data only; no history, identifiers, or secrets.
+- **Import behavior:** JSON files only (5 MB limit), parsed safely and validated with Zod. Wrong format/version or malformed sections are rejected with a message and your current data stays untouched. A preview shows per-section counts before anything changes.
+- **⚠️ Data replacement warning:** confirming an import **replaces** matching data on that browser. Download current data first (the dialog offers this). Preferences are restored only if you tick the checkbox.
+- **Recovery:** every app start runs a version check (`lib/migrate.ts`); old-but-valid shapes migrate forward, unreadable records reset singly with a backup snapshot kept under `ikigai.v1.backup.*`.
+- **Privacy limits:** localStorage is not encrypted; imports are data-only (never executed); nothing ever leaves the browser.
 
 ## Accessibility
 

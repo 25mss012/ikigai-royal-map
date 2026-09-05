@@ -28,10 +28,10 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
-          <button className="compact-hit rounded-full border border-[var(--border)] px-3 text-sm" onClick={() => setPrefs({ lang: prefs.lang === "en" ? "ta" : "en" })} aria-label="Switch language">
+          <button data-testid="language-toggle" className="compact-hit rounded-full border border-[var(--border)] px-3 text-sm" onClick={() => setPrefs({ lang: prefs.lang === "en" ? "ta" : "en" })} aria-label="Switch language">
             {prefs.lang === "en" ? "தமிழ்" : "English"}
           </button>
-          <button className="compact-hit rounded-full border border-[var(--border)] px-3 text-sm" onClick={() => setPrefs({ theme: prefs.theme === "dark" ? "light" : "dark" })} aria-label="Toggle theme">
+          <button data-testid="theme-toggle" className="compact-hit rounded-full border border-[var(--border)] px-3 text-sm" onClick={() => setPrefs({ theme: prefs.theme === "dark" ? "light" : "dark" })} aria-label="Toggle theme">
             {prefs.theme === "dark" ? "☀ Light" : "☾ Dark"}
           </button>
           <Link href="/assessment" className="compact-hit rounded-full bg-midnight px-4 text-sm font-semibold text-champagne dark:bg-imperial dark:text-obsidian">{tr("cta.startAssessment")}</Link>

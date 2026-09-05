@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { STORAGE_KEYS } from "@/lib/constants";
 import { asRecord, getJSON, setJSON } from "@/lib/storage";
+import { migrateLocalStorage } from "@/lib/migrate";
 import { t } from "@/data/translations";
 import type { Prefs } from "@/types";
 
@@ -20,6 +21,7 @@ export function Providers({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    try { migrateLocalStorage(); } catch { /* migration is best-effort */ }
     const saved = asRecord(getJSON<unknown>(STORAGE_KEYS.prefs, {})) as Partial<Prefs>;
     const merged = { ...DEFAULTS, ...saved };
     // respect OS reduced motion on first run

@@ -60,7 +60,7 @@ export default function FlowPage() {
           <fieldset className="mt-2"><legend className="text-sm">Setting</legend><div className="mt-1 flex flex-wrap gap-2">{SETTINGS.map((s) => <button key={s} type="button" onClick={() => setForm({ ...form, setting: s })} aria-pressed={form.setting === s} className={`rounded-full border px-3 py-1.5 text-sm ${form.setting === s ? "border-imperial bg-imperial/15" : "border-[var(--border)]"}`}>{s}</button>)}</div></fieldset>
           <label className="mt-2 block text-sm">Notes<textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows={2} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
           {error && <p role="alert" className="mt-2 text-sm text-error">{error}</p>}
-          <div className="mt-3"><Button onClick={add}>Add entry</Button></div>
+          <div className="mt-3"><Button data-testid="flow-add-entry" onClick={add}>Add entry</Button></div>
         </Card>
         <div className="lg:col-span-3">
           {stats ? (

@@ -62,8 +62,8 @@ export default function PlanPage() {
             <p className="mt-1 text-sm text-[var(--muted)]">{lang === "ta" ? d.whyTa : d.whyEn}</p>
             <p className="mt-1 text-sm italic">Reflect: {lang === "ta" ? d.promptTa : d.promptEn}</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              <button onClick={() => setStatus(d.day, "done")} aria-pressed={d.status === "done"} className={`rounded-full border px-4 py-1.5 text-sm font-semibold ${d.status === "done" ? "border-success bg-success/15" : "border-[var(--border)]"}`}>✓ Done</button>
-              <button onClick={() => setStatus(d.day, "skipped")} aria-pressed={d.status === "skipped"} className={`rounded-full border px-4 py-1.5 text-sm ${d.status === "skipped" ? "border-warning bg-warning/10" : "border-[var(--border)]"}`}>Skip kindly</button>
+              <button data-testid={`plan-complete-${d.day}`} onClick={() => setStatus(d.day, "done")} aria-pressed={d.status === "done"} className={`rounded-full border px-4 py-1.5 text-sm font-semibold ${d.status === "done" ? "border-success bg-success/15" : "border-[var(--border)]"}`}>✓ Done</button>
+              <button data-testid={`plan-skip-${d.day}`} onClick={() => setStatus(d.day, "skipped")} aria-pressed={d.status === "skipped"} className={`rounded-full border px-4 py-1.5 text-sm ${d.status === "skipped" ? "border-warning bg-warning/10" : "border-[var(--border)]"}`}>Skip kindly</button>
               {d.status !== "todo" && <button onClick={() => setStatus(d.day, "todo")} className="rounded-full border border-[var(--border)] px-4 py-1.5 text-sm">Reopen</button>}
               <button onClick={() => reschedule(d.day)} className="rounded-full border border-[var(--border)] px-4 py-1.5 text-sm">Move to tomorrow</button>
             </div>

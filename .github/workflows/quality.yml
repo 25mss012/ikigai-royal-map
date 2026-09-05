@@ -25,4 +25,5 @@ jobs:
           ! git ls-files | grep -iE '\.(pdf|epub|mobi|pem|key)$' || (echo "Blocked file type tracked" && exit 1)
       - run: npm run lint
       - run: npm run typecheck
+      - run: npm run test:unit
       - run: npm run build

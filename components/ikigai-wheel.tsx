@@ -18,7 +18,7 @@ export function IkigaiWheel({ result }: { result: AssessmentResult | null }) {
       return `${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`;
     }).join(" ");
   return (
-    <figure>
+    <figure data-testid="results-wheel">
       <svg viewBox={`0 0 ${size} ${size}`} role="img" aria-label="Ikigai map showing five dimension scores" className="mx-auto w-full max-w-[320px]">
         <circle cx={cx} cy={cy} r={R} fill="none" stroke="currentColor" opacity={0.2} />
         <polygon points={ring(0.66)} fill="none" stroke="currentColor" opacity={0.2} />
