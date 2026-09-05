@@ -44,6 +44,11 @@
 html { scroll-behavior: smooth; }
 html[data-motion="reduced"] { scroll-behavior: auto; }
 
+/* Mobile-first guards: no horizontal overflow, long words (incl. Tamil) wrap */
+body { overflow-wrap: break-word; }
+img, svg { max-width: 100%; }
+table { display: block; max-width: 100%; overflow-x: auto; }
+
 body {
   background: var(--bg);
   color: var(--fg);
@@ -119,8 +124,16 @@ button, a, input, select, textarea, [role="button"] { min-height: 44px; }
 nav a, .compact-hit { min-height: 44px; display: inline-flex; align-items: center; }
 
 /* Print */
+.print-only { display: none; }
 @media print {
   header, footer, nav, .no-print { display: none !important; }
-  body { background: #fff; color: #000; font-size: 12pt; }
-  .royal-card { box-shadow: none; break-inside: avoid; }
+  body { background: #fff !important; color: #000 !important; font-size: 12pt; }
+  .sunrise-bg, .pattern-seigaiha { background: none !important; }
+  .royal-card { box-shadow: none !important; border-color: #999 !important; break-inside: avoid; }
+  li.royal-card, section, article { break-inside: avoid-page; }
+  h1, h2, h3 { break-after: avoid; color: #000 !important; }
+  p, li { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  .print-only { display: block !important; border-bottom: 2px solid #000; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+  button { display: none !important; }
 }

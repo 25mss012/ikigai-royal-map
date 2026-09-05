@@ -7,6 +7,15 @@ export async function reset(page: Page) {
   await page.reload();
 }
 
+/** Set prefs before first app load so boot reads them (avoids a locale race). */
+export async function setLang(page: Page, lang: "en" | "ta") {
+  await page.goto("/");
+  await page.evaluate((l) => {
+    window.localStorage.setItem("ikigai.v1.prefs", JSON.stringify({ lang: l, theme: "light", contrast: false, textSize: "normal", reducedMotion: false }));
+  }, lang);
+  await page.reload();
+}
+
 const PREFIXES: Array<[string, number]> = [
   ["love", 8],
   ["str", 8],
@@ -28,9 +37,9 @@ export async function seedFullAnswers(page: Page, value = 4) {
   }, value);
 }
 
-/** Fill the journal reflection box (placeholder-scoped: avoids the search field). */
+/** Fill the journal reflection box (either language's placeholder). */
 export async function fillReflection(page: Page, text: string) {
-  const box = page.getByPlaceholder("What mattered today?");
+  const box = page.getByPlaceholder(/mattered today|முக்கியமாக/);
   await box.scrollIntoViewIfNeeded();
   await box.fill(text);
 }

@@ -18,7 +18,7 @@ export function Card({ children, className, ...rest }: { children: ReactNode; cl
   return <div className={cn("royal-card p-6", className)} {...rest}>{children}</div>;
 }
 
-export function SectionHeading({ kicker, title, desc }: { kicker?: string; title: string; desc?: string }) {
+export function SectionHeading({ kicker, title, desc }: { kicker?: React.ReactNode; title: React.ReactNode; desc?: React.ReactNode }) {
   return (
     <div className="mx-auto mb-10 max-w-2xl text-center">
       {kicker && <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--gold-contrast)]">{kicker}</p>}

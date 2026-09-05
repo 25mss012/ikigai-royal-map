@@ -6,6 +6,7 @@ import { buildPlan, planProgress } from "@/data/plan-templates";
 import { todayISO } from "@/lib/utils";
 import { usePrefs } from "@/components/providers";
 import { Button, Card, EmptyState, SectionHeading, ProgressBar } from "@/components/ui";
+import { PrintHeader } from "@/components/print-header";
 import type { PlanDay } from "@/types";
 
 export default function PlanPage() {
@@ -49,6 +50,7 @@ export default function PlanPage() {
   const p = planProgress(days);
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
+      <PrintHeader titleEn="30-day purpose plan" titleTa="30-நாள் நோக்கத் திட்டம்" />
       <SectionHeading kicker="30-day purpose plan" title={`Day ${p.currentDay} of 30`} desc="Small, reversible, observable. Reschedule kindly when life happens." />
       <div className="mb-6"><ProgressBar value={p.pct} label={`${p.done} done · ${p.skipped} skipped · ${p.pct}%`} /></div>
       <ol className="grid gap-3">

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Ikigai sunrise mark">
+  <rect width="512" height="512" rx="112" fill="#171A2B"/>
+  <circle cx="256" cy="218" r="104" fill="#C9A227"/>
+  <circle cx="256" cy="218" r="104" fill="url(#g)"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E4C65B"/>
+      <stop offset="1" stop-color="#C9A227" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <rect x="72" y="300" width="368" height="10" rx="5" fill="#C9A227" opacity="0.85"/>
+  <path d="M72 344 Q128 328 184 344 T296 344 T440 344" stroke="#F4E7C1" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M100 384 Q160 370 220 384 T340 384 T440 384" stroke="#174A45" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.9"/>
+  <circle cx="256" cy="218" r="118" fill="none" stroke="#F4E7C1" stroke-width="6" opacity="0.5"/>
+</svg>

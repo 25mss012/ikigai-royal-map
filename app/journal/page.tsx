@@ -1,15 +1,49 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { STORAGE_KEYS, CRISIS_NOTICE_EN } from "@/lib/constants";
+import { STORAGE_KEYS, CRISIS_NOTICE_EN, CRISIS_NOTICE_TA } from "@/lib/constants";
 import { asArray, getJSON, setJSON } from "@/lib/storage";
 import { download, downloadJSON } from "@/lib/export-data";
 import { uid, todayISO } from "@/lib/utils";
+import { usePrefs } from "@/components/providers";
 import { Button, Card, EmptyState, Notice, SectionHeading } from "@/components/ui";
+import { PrintHeader } from "@/components/print-header";
 import type { JournalEntry } from "@/types";
 
 const CRISIS_WORDS = ["suicide", "kill myself", "self-harm", "end my life", "want to die", "தற்கொலை"];
 
+const STR = {
+  en: {
+    kicker: "Private journal", title: "A few honest lines", desc: "No account. Stored in this browser only.",
+    stored: "Your journal is stored in this browser. Clearing browser data or changing devices may remove it unless you export it.",
+    newE: "New entry", editE: "Edit entry", date: "Date", reflection: "Reflection", reflectionPh: "What mattered today?",
+    tags: "Tags (comma separated)", tagsPh: "calm, family, work", activity: "Related activity (optional)",
+    gratitude: "Gratitude (optional)", challenge: "Challenge (optional)",
+    save: "Save entry", update: "Update", cancel: "Cancel", searchPh: "Search reflections…", allTags: "All tags",
+    exportJ: "Export JSON", exportM: "Export Markdown", clear: "Clear all", confirmClear: "Delete ALL journal entries? This cannot be undone.",
+    errText: "Write at least a sentence.", edit: "Edit", del: "Delete", confirmDel: "Delete this entry?",
+    grateful: "Grateful:", challengeL: "Challenge:",
+    emptyT: "No entries yet", emptyD: "Your journey begins with one small reflection. Try one five-minute note.",
+    loading: "Loading…",
+  },
+  ta: {
+    kicker: "தனிப்பட்ட நாட்குறிப்பு", title: "சில நேர்மையான வரிகள்", desc: "கணக்கு இல்லை. இந்த உலாவியில் மட்டும்.",
+    stored: "உங்கள் நாட்குறிப்பு இந்த உலாவியில் சேமிக்கப்படுகிறது. உலாவித் தரவை அழித்தாலோ வேறு சாதனம் மாறினாலோ ஏற்றுமதி செய்யாவிட்டால் அது நீங்கலாம்.",
+    newE: "புது பதிவு", editE: "பதிவைத் திருத்து", date: "தேதி", reflection: "சிந்தனை", reflectionPh: "இன்று எது முக்கியமாக இருந்தது?",
+    tags: "குறிச்சொற்கள் (காற்புள்ளியால்)", tagsPh: "அமைதி, குடும்பம், வேலை", activity: "தொடர்புடைய செயல் (விருப்பம்)",
+    gratitude: "நன்றி (விருப்பம்)", challenge: "சவால் (விருப்பம்)",
+    save: "சேமி", update: "புதுப்பி", cancel: "ரத்து", searchPh: "சிந்தனைகளில் தேடு…", allTags: "அனைத்து குறிச்சொற்கள்",
+    exportJ: "JSON ஏற்றுமதி", exportM: "Markdown ஏற்றுமதி", clear: "அனைத்தும் நீக்கு", confirmClear: "அனைத்து நாட்குறிப்புகளையும் நீக்கவா? இதை மீட்க முடியாது.",
+    errText: "குறைந்தது ஒரு வாக்கியம் எழுதுங்கள்.", edit: "திருத்து", del: "நீக்கு", confirmDel: "இந்தப் பதிவை நீக்கவா?",
+    grateful: "நன்றி:", challengeL: "சவால்:",
+    emptyT: "இன்னும் பதிவுகள் இல்லை", emptyD: "ஒரு சிறு சிந்தனையில் பயணம் தொடங்கும். 5 நிமிடக் குறிப்பு முயலுங்கள்.",
+    loading: "ஏற்றுகிறது…",
+  },
+};
+
 export default function JournalPage() {
+  const { prefs } = usePrefs();
+  const s = prefs.lang === "ta" ? STR.ta : STR.en;
+  const crisisNotice = prefs.lang === "ta" ? CRISIS_NOTICE_TA : CRISIS_NOTICE_EN;
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [form, setForm] = useState({ date: todayISO(), mood: 3, energy: 3, purpose: 3, text: "", tags: "", activity: "", gratitude: "", challenge: "" });
@@ -34,7 +68,7 @@ export default function JournalPage() {
   const allTags = useMemo(() => Array.from(new Set(entries.flatMap((e) => e.tags))).slice(0, 20), [entries]);
 
   const save = () => {
-    if (form.text.trim().length < 1) { setError("Write at least a sentence."); return; }
+    if (form.text.trim().length < 1) { setError(s.errText); return; }
     setError("");
     const low = form.text.toLowerCase();
     if (CRISIS_WORDS.some((w) => low.includes(w))) setShowCrisis(true);
@@ -53,55 +87,56 @@ export default function JournalPage() {
     download("ikigai-journal.md", md || "# Empty journal", "text/markdown");
   };
 
-  if (!loaded) return <div className="mx-auto max-w-4xl px-4 py-12"><p>Loading…</p></div>;
+  if (!loaded) return <div className="mx-auto max-w-4xl px-4 py-12"><p>{s.loading}</p></div>;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <SectionHeading kicker="Private journal" title="A few honest lines" desc="No account. Stored in this browser only." />
-      <Notice>Your journal is stored in this browser. Clearing browser data or changing devices may remove it unless you export it.</Notice>
-      {showCrisis && <div className="mt-3"><Notice tone="warn">{CRISIS_NOTICE_EN}</Notice></div>}
+      <PrintHeader titleEn="Journal" titleTa="நாட்குறிப்பு" />
+      <SectionHeading kicker={s.kicker} title={s.title} desc={s.desc} />
+      <Notice>{s.stored}</Notice>
+      {showCrisis && <div className="mt-3"><Notice tone="warn">{crisisNotice}</Notice></div>}
 
       <div className="mt-6 grid gap-4 lg:grid-cols-5">
-        <Card className="lg:col-span-2">
-          <h2 className="font-bold">{editing ? "Edit entry" : "New entry"}</h2>
-          <label className="mt-3 block text-sm">Date<input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
-          {[["mood", "Mood"], ["energy", "Energy"], ["purpose", "Purpose"]].map(([k, label]) => (
-            <label key={k} className="mt-2 block text-sm">{label} (1–5)<input type="range" min={1} max={5} value={(form as unknown as Record<string, number>)[k]} onChange={(e) => setForm({ ...form, [k]: Number(e.target.value) })} className="mt-1 w-full" aria-label={label} /></label>
+        <Card className="min-w-0 lg:col-span-2">
+          <h2 className="font-bold">{editing ? s.editE : s.newE}</h2>
+          <label className="mt-3 block text-sm">{s.date}<input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
+          {[["mood", "Mood", "மனநிலை"], ["energy", "Energy", "ஆற்றல்"], ["purpose", "Purpose", "நோக்கம்"]].map(([k, enLabel, taLabel]) => (
+            <label key={k} className="mt-2 block text-sm">{prefs.lang === "ta" ? taLabel : enLabel} (1–5)<input type="range" min={1} max={5} value={(form as unknown as Record<string, number>)[k]} onChange={(e) => setForm({ ...form, [k]: Number(e.target.value) })} className="mt-1 w-full" aria-label={prefs.lang === "ta" ? (taLabel as string) : (enLabel as string)} /></label>
           ))}
-          <label className="mt-2 block text-sm">Reflection<textarea value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} rows={5} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" placeholder="What mattered today?" /></label>
-          <label className="mt-2 block text-sm">Tags (comma separated)<input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" placeholder="calm, family, work" /></label>
-          <label className="mt-2 block text-sm">Related activity (optional)<input value={form.activity} onChange={(e) => setForm({ ...form, activity: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
-          <label className="mt-2 block text-sm">Gratitude (optional)<input value={form.gratitude} onChange={(e) => setForm({ ...form, gratitude: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
-          <label className="mt-2 block text-sm">Challenge (optional)<input value={form.challenge} onChange={(e) => setForm({ ...form, challenge: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
+          <label className="mt-2 block text-sm">{s.reflection}<textarea value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} rows={5} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" placeholder={s.reflectionPh} /></label>
+          <label className="mt-2 block text-sm">{s.tags}<input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" placeholder={s.tagsPh} /></label>
+          <label className="mt-2 block text-sm">{s.activity}<input value={form.activity} onChange={(e) => setForm({ ...form, activity: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
+          <label className="mt-2 block text-sm">{s.gratitude}<input value={form.gratitude} onChange={(e) => setForm({ ...form, gratitude: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
+          <label className="mt-2 block text-sm">{s.challenge}<input value={form.challenge} onChange={(e) => setForm({ ...form, challenge: e.target.value })} className="mt-1 w-full rounded-xl border border-[var(--border)] bg-transparent px-3 py-2" /></label>
           {error && <p role="alert" className="mt-2 text-sm text-error">{error}</p>}
-          <div className="mt-3 flex gap-2"><Button data-testid="journal-save" onClick={save}>{editing ? "Update" : "Save entry"}</Button>{editing && <Button variant="secondary" onClick={() => { setEditing(null); setForm({ date: todayISO(), mood: 3, energy: 3, purpose: 3, text: "", tags: "", activity: "", gratitude: "", challenge: "" }); }}>Cancel</Button>}</div>
+          <div className="mt-3 flex flex-wrap gap-2"><Button data-testid="journal-save" onClick={save}>{editing ? s.update : s.save}</Button>{editing && <Button variant="secondary" onClick={() => { setEditing(null); setForm({ date: todayISO(), mood: 3, energy: 3, purpose: 3, text: "", tags: "", activity: "", gratitude: "", challenge: "" }); }}>{s.cancel}</Button>}</div>
         </Card>
 
-        <div className="lg:col-span-3">
+        <div className="min-w-0 lg:col-span-3">
           <div className="flex flex-wrap gap-2">
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search reflections…" aria-label="Search reflections" className="min-w-[200px] flex-1 rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm" />
-            <select value={tagFilter} onChange={(e) => setTagFilter(e.target.value)} aria-label="Filter by tag" className="rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm">
-              <option value="">All tags</option>{allTags.map((t) => <option key={t} value={t}>{t}</option>)}
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={s.searchPh} aria-label={s.searchPh} className="w-full min-w-0 flex-1 rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm sm:min-w-[200px] sm:w-auto" />
+            <select value={tagFilter} onChange={(e) => setTagFilter(e.target.value)} aria-label={s.allTags} className="max-w-full rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm">
+              <option value="">{s.allTags}</option>{allTags.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
           </div>
-          <div className="mt-2 flex gap-3 text-sm">
-            <button className="underline" onClick={() => downloadJSON("ikigai-journal.json", entries)}>Export JSON</button>
-            <button className="underline" onClick={exportMd}>Export Markdown</button>
-            <button className="underline text-error" onClick={() => { if (confirm("Delete ALL journal entries? This cannot be undone.")) setEntries([]); }}>Clear all</button>
+          <div className="mt-2 flex flex-wrap gap-3 text-sm">
+            <button className="underline" onClick={() => downloadJSON("ikigai-journal.json", entries)}>{s.exportJ}</button>
+            <button className="underline" onClick={exportMd}>{s.exportM}</button>
+            <button className="underline text-error" onClick={() => { if (confirm(s.confirmClear)) setEntries([]); }}>{s.clear}</button>
           </div>
           {filtered.length === 0 ? (
-            <div className="mt-4"><EmptyState title="No entries yet" desc="Your journey begins with one small reflection. Try one five-minute note." /></div>
+            <div className="mt-4"><EmptyState title={s.emptyT} desc={s.emptyD} /></div>
           ) : (
             <ul className="mt-4 grid gap-3">
               {filtered.map((e) => (
-                <li key={e.id} className="royal-card p-5">
-                  <div className="flex items-center justify-between text-xs text-[var(--muted)]"><span>{e.date} · ♥{e.mood} ⚡{e.energy} ✦{e.purpose}</span><span>{e.tags.join(" · ")}</span></div>
-                  <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed">{e.text}</p>
-                  {e.gratitude && <p className="mt-1 text-sm">Grateful: {e.gratitude}</p>}
-                  {e.challenge && <p className="mt-1 text-sm text-[var(--muted)]">Challenge: {e.challenge}</p>}
+                <li key={e.id} className="royal-card min-w-0 p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--muted)]"><span>{e.date} · ♥{e.mood} ⚡{e.energy} ✦{e.purpose}</span><span className="break-all">{e.tags.join(" · ")}</span></div>
+                  <p className="mt-2 break-words whitespace-pre-wrap text-sm leading-relaxed">{e.text}</p>
+                  {e.gratitude && <p className="mt-1 break-words text-sm">{s.grateful} {e.gratitude}</p>}
+                  {e.challenge && <p className="mt-1 break-words text-sm text-[var(--muted)]">{s.challengeL} {e.challenge}</p>}
                   <div className="mt-3 flex gap-2 text-sm">
-                    <button className="underline" onClick={() => { setEditing(e.id); setForm({ date: e.date, mood: e.mood, energy: e.energy, purpose: e.purpose, text: e.text, tags: e.tags.join(", "), activity: e.activity ?? "", gratitude: e.gratitude ?? "", challenge: e.challenge ?? "" }); window.scrollTo({ top: 0 }); }}>Edit</button>
-                    <button className="underline text-error" onClick={() => { if (confirm("Delete this entry?")) setEntries((es) => es.filter((x) => x.id !== e.id)); }}>Delete</button>
+                    <button className="underline" onClick={() => { setEditing(e.id); setForm({ date: e.date, mood: e.mood, energy: e.energy, purpose: e.purpose, text: e.text, tags: e.tags.join(", "), activity: e.activity ?? "", gratitude: e.gratitude ?? "", challenge: e.challenge ?? "" }); window.scrollTo({ top: 0 }); }}>{s.edit}</button>
+                    <button className="underline text-error" onClick={() => { if (confirm(s.confirmDel)) setEntries((es) => es.filter((x) => x.id !== e.id)); }}>{s.del}</button>
                   </div>
                 </li>
               ))}

@@ -55,7 +55,15 @@ npm run test:e2e:ui       # interactive UI mode
 npm run test:e2e:report   # open the last HTML report
 ```
 
-CI: `quality.yml` runs secret scan → lint → typecheck → unit → build; `e2e.yml` installs Chromium with system deps, builds, and runs the full browser suite (reports uploaded only on failure).
+CI: `quality.yml` runs secret scan → lint → typecheck → unit → build; `e2e.yml` installs Chromium with system deps, builds, and runs the full browser suite (51 tests, reports uploaded only on failure).
+
+## Launch readiness
+
+- **Mobile:** layouts verified at 320–414px, 768px, 1024px, desktop (E2E overflow guards at 320px + Tamil XL-text at 640px); 44px touch targets; no horizontal scroll; dialogs fit the viewport with internal scroll.
+- **Print:** results, plan, journal, circle print cleanly — navigation/controls/decor hidden, black-on-white, page-break-safe cards, print header with site name + date. Journal prints only when the user explicitly prints it.
+- **PWA:** installable metadata is provided (manifest, icons, theme colors, Apple web-app meta); full offline support is not currently claimed — no service worker, so updates and journal safety are never at risk from stale caches.
+- **Tests:** 51 Playwright (Chromium) + 18 `node:test` unit (migration/portability). Dialog keyboard contract (focus trap, Escape, focus return) covered.
+- **Security reminder:** rotate any credential ever pasted outside its dashboard (GitHub Settings → Tokens; Vercel Account → Tokens).
 
 ## Data storage
 
@@ -79,7 +87,7 @@ Skip link, landmarks, heading order, focus rings, keyboard-full, 44px targets, l
 
 ## i18n
 
-EN + TA dictionary (`data/translations.ts`), header toggle, assessment/learn/plan core content bilingual, `Intl` dates (`en-GB`/`ta-IN`), logical-property-ready CSS. No RTL language shipped but layout is RTL-ready.
+EN + TA across the interface: navigation, homepage, about, all 21 learning essays (body, insight, try-today, reflection), assessment (40/40 questions, examples, scale), results (headings, archetype glosses, experiments, prompts), Flow/Journal/Plan/Circle/Dashboard labels, validation + empty-state + import/export messages, privacy/accessibility/responsible-use, 404. `Intl` dates (`en-GB`/`ta-IN`). "Ikigai" is kept as-is (no misleading one-word equivalent). Language switch preserves saved data. No RTL language shipped but layout is RTL-ready.
 
 ## Testing
 

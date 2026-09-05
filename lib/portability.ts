@@ -150,23 +150,39 @@ export function collectExport(): ExportBundle {
 }
 
 /** Pure: byte-size gate + JSON parse + Zod validation. Never throws. */
-export function parseImportFile(raw: string): { ok: true; value: ValidImport } | { ok: false; error: string } {
-  if (typeof raw !== "string" || raw.length === 0) return { ok: false, error: "The file is empty." };
-  if (raw.length > MAX_IMPORT_BYTES) return { ok: false, error: `The file is too large (limit ${(MAX_IMPORT_BYTES / 1024 / 1024).toFixed(0)} MB).` };
+export function parseImportFile(raw: string, lang: "en" | "ta" = "en"): { ok: true; value: ValidImport } | { ok: false; error: string } {
+  const M = {
+    en: {
+      empty: "The file is empty.",
+      large: `The file is too large (limit ${(MAX_IMPORT_BYTES / 1024 / 1024).toFixed(0)} MB).`,
+      json: "This file is not valid JSON. Only Ikigai export files (.json) are accepted.",
+      format: "This is not a supported Ikigai export file (wrong format or version).",
+      section: (where: string, msg: string) => `This file could not be accepted (${where}: ${msg}). Your current data is unchanged.`,
+    },
+    ta: {
+      empty: "கோப்பு காலியாக உள்ளது.",
+      large: `கோப்பு மிகப் பெரியது (வரம்பு ${(MAX_IMPORT_BYTES / 1024 / 1024).toFixed(0)} MB).`,
+      json: "இது சரியான JSON கோப்பு அல்ல. இகிகை ஏற்றுமதி (.json) கோப்புகள் மட்டும் ஏற்கப்படும்.",
+      format: "இது ஆதரிக்கப்படும் இகிகை ஏற்றுமதி கோப்பு அல்ல (வடிவம்/பதிப்பு தவறு).",
+      section: (where: string, msg: string) => `இந்தக் கோப்பை ஏற்க முடியவில்லை (${where}). தற்போதைய தரவு மாறவில்லை.`,
+    },
+  }[lang];
+  if (typeof raw !== "string" || raw.length === 0) return { ok: false, error: M.empty };
+  if (raw.length > MAX_IMPORT_BYTES) return { ok: false, error: M.large };
   let parsed: unknown;
   try {
     parsed = JSON.parse(raw);
   } catch {
-    return { ok: false, error: "This file is not valid JSON. Only Ikigai export files (.json) are accepted." };
+    return { ok: false, error: M.json };
   }
   const res = importFileSchema.safeParse(parsed);
   if (!res.success) {
     const first = res.error.issues[0];
     const where = first.path.join(".") || "file";
     if (where === "format" || where === "version") {
-      return { ok: false, error: "This is not a supported Ikigai export file (wrong format or version)." };
+      return { ok: false, error: M.format };
     }
-    return { ok: false, error: `This file could not be accepted (${where}: ${first.message}). Your current data is unchanged.` };
+    return { ok: false, error: M.section(where, first.message) };
   }
   return { ok: true, value: res.data };
 }

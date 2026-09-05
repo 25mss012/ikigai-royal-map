@@ -13,8 +13,8 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "en",
     categories: ["education", "lifestyle", "health"],
     icons: [
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
       { src: "/favicon.ico", sizes: "16x16", type: "image/x-icon" },
-      { src: "/vercel.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
     ],
   };
 }

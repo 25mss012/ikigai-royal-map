@@ -31,7 +31,7 @@ test("search and tag filter narrow the list", async ({ page }) => {
   await expect(page.getByText("Test reflection")).toBeHidden();
   await page.getByPlaceholder(/Search reflections/).fill("");
 
-  await page.getByLabel("Filter by tag").selectOption("calm");
+  await page.getByLabel("All tags").selectOption("calm");
   await expect(page.getByText("Test reflection")).toBeVisible();
   await expect(page.getByText("Sample learning note")).toBeHidden();
 });

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.0 — 2026-09-06 (launch refinement)
+- Full Tamil localization: homepage, about, all 21 essays, assessment, results (+ archetype glosses), flow, journal, plan, circle, dashboard, privacy, accessibility, responsible-use, import/export, validation, empty states, 404. Language switch never loses data.
+- Mobile-first: overflow guards, wrapping, viewport-safe dialogs; E2E width checks (320px suite, Tamil XL-text zoom case).
+- Print: dedicated styles + print header (site name, title, date) on results/plan/journal/circle; Playwright print-media test.
+- PWA: original SVG icon, manifest + Apple metadata; documented as installable-metadata-only (no SW, no offline claims).
+- Trust: dashboard Privacy-status card; recommendation wording audit (no destiny/score-identity language); audience examples on Learn.
+- A11y: import dialog focus trap + focus return; automated keyboard-contract test.
+- Tests: 51 E2E (Tamil journeys, mobile, print, import robustness, persistence) + 18 unit, all green.
+
 ## 1.2.0 — 2026-09-06 (browser testing + data portability)
 - Playwright E2E suite (Chromium, 37 tests): navigation + mobile menu + 404, full assessment journey, results safety, flow math, plan lifecycle, journal CRUD/search/export, circle ≤5 guard, dashboard export/delete, preferences persistence, import preview/confirm/reject.
 - Safe portability: versioned export envelope (`ikigai-export v1`), Zod-validated import with preview + explicit replace confirmation, prefs-restore opt-in, 5 MB cap, data-only handling.
