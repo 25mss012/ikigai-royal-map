@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { STORAGE_KEYS } from "@/lib/constants";
-import { getJSON, setJSON } from "@/lib/storage";
+import { asArray, getJSON, setJSON } from "@/lib/storage";
 import { uid } from "@/lib/utils";
 import { CIRCLE_KINDS } from "@/data/reflection-prompts";
 import { Button, Card, EmptyState, SectionHeading, Notice } from "@/components/ui";
@@ -13,7 +13,7 @@ export default function CirclePage() {
   const [form, setForm] = useState({ label: "", kind: "Friend", supportReceived: "", supportGiven: "", lastConnection: "", nextIntention: "" });
   const [error, setError] = useState("");
 
-  useEffect(() => { setEntries(getJSON<CircleEntry[]>(STORAGE_KEYS.circle, [])); setLoaded(true); }, []);
+  useEffect(() => { setEntries(asArray<CircleEntry>(getJSON<unknown>(STORAGE_KEYS.circle, []))); setLoaded(true); }, []);
   useEffect(() => { if (loaded) setJSON(STORAGE_KEYS.circle, entries); }, [entries, loaded]);
 
   const add = () => {

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { STORAGE_KEYS, DIMENSIONS } from "@/lib/constants";
-import { getJSON, removeKey } from "@/lib/storage";
+import { getValidated, isAssessmentResultLike, removeKey } from "@/lib/storage";
 import { experimentsFor, promptsFor } from "@/lib/recommendations";
 import { downloadJSON } from "@/lib/export-data";
 import { usePrefs } from "@/components/providers";
@@ -18,7 +18,8 @@ export default function ResultsPage() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setResult(getJSON<AssessmentResult | null>(STORAGE_KEYS.result, null));
+    const loaded = getValidated<AssessmentResult | null>(STORAGE_KEYS.result, null, (v): v is AssessmentResult | null => v === null || isAssessmentResultLike(v));
+    setResult(loaded);
     setLoaded(true);
   }, []);
 

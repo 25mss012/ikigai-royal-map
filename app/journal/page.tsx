@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { STORAGE_KEYS, CRISIS_NOTICE_EN } from "@/lib/constants";
-import { getJSON, setJSON } from "@/lib/storage";
+import { asArray, getJSON, setJSON } from "@/lib/storage";
 import { download, downloadJSON } from "@/lib/export-data";
 import { uid, todayISO } from "@/lib/utils";
 import { Button, Card, EmptyState, Notice, SectionHeading } from "@/components/ui";
@@ -19,7 +19,7 @@ export default function JournalPage() {
   const [error, setError] = useState("");
   const [showCrisis, setShowCrisis] = useState(false);
 
-  useEffect(() => { setEntries(getJSON<JournalEntry[]>(STORAGE_KEYS.journal, [])); setLoaded(true); }, []);
+  useEffect(() => { setEntries(asArray<JournalEntry>(getJSON<unknown>(STORAGE_KEYS.journal, []))); setLoaded(true); }, []);
   useEffect(() => { if (loaded) setJSON(STORAGE_KEYS.journal, entries); }, [entries, loaded]);
 
   const filtered = useMemo(() => {

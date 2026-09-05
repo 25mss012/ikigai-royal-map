@@ -47,6 +47,39 @@ export function getJSON<T>(key: string, fallback: T): T {
   try { return JSON.parse(raw) as T; } catch { return fallback; }
 }
 
+/** Shape guards: corrupted-but-parseable data resets only that key, never everything. */
+export function asArray<T>(value: unknown): T[] {
+  return Array.isArray(value) ? (value as T[]) : [];
+}
+
+export function asRecord(value: unknown): Record<string, never> {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, never>)
+    : {};
+}
+
+/** Load + validate; on shape mismatch, reset just this key and return fallback. */
+export function getValidated<T>(key: string, fallback: T, validate: (v: unknown) => v is T): T {
+  const raw = getRaw(key);
+  if (!raw) return fallback;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (validate(parsed)) return parsed;
+    removeKey(key);
+    return fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+export function isAssessmentResultLike(v: unknown): v is import("@/types").AssessmentResult {
+  const r = v as Record<string, unknown>;
+  return (
+    r !== null && typeof r === "object" && Array.isArray(r.scores) &&
+    r.scores.every((s) => s !== null && typeof s === "object" && typeof (s as Record<string, unknown>).id === "string")
+  );
+}
+
 export function setJSON(key: string, value: unknown): void {
   try { setRaw(key, JSON.stringify(value)); } catch { /* ignore */ }
 }

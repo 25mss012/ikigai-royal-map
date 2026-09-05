@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { STORAGE_KEYS } from "@/lib/constants";
-import { getJSON, setJSON } from "@/lib/storage";
+import { getValidated, setJSON } from "@/lib/storage";
 import { buildPlan, planProgress } from "@/data/plan-templates";
 import { todayISO } from "@/lib/utils";
 import { usePrefs } from "@/components/providers";
@@ -15,7 +15,7 @@ export default function PlanPage() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setDays(getJSON<PlanDay[] | null>(STORAGE_KEYS.plan, null));
+    setDays(getValidated<PlanDay[] | null>(STORAGE_KEYS.plan, null, (v): v is PlanDay[] | null => v === null || (Array.isArray(v) && v.every((d) => d !== null && typeof d === "object" && typeof (d as PlanDay).day === "number"))));
     setLoaded(true);
   }, []);
   useEffect(() => { if (loaded && days) setJSON(STORAGE_KEYS.plan, days); }, [days, loaded]);

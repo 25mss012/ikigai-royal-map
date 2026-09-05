@@ -1,0 +1,26 @@
+name: Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Secret scan (fail on tokens, keys, or private material)
+        run: |
+          ! git grep -n -iE "ghp_|github_pat_|gho_|vcp_|vercel.*token|api[_-]?key|jwt[_-]?secret|private[_-]?key|database_url|mongodb\+srv|postgres://|mysql://" -- . ':!package-lock.json' || (echo "Possible secret found" && exit 1)
+          ! git ls-files | grep -iE '\.(pdf|epub|mobi|pem|key)$' || (echo "Blocked file type tracked" && exit 1)
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build

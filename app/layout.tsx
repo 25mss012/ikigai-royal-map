@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
@@ -16,6 +16,15 @@ export const metadata: Metadata = {
   openGraph: { type: "website", siteName: "Ikigai — The Royal Map of Purpose", title: "Ikigai — Discover Purpose, Meaning, and Direction", description: "A private, practical journey to understand energy, meaning, connection, and momentum." },
   twitter: { card: "summary_large_image", title: "Ikigai — Discover Purpose, Meaning, and Direction", description: "Private reflection tools, purpose map, flow lab, 30-day plan, journal." },
   alternates: { canonical: "/" },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFF9EE" },
+    { media: "(prefers-color-scheme: dark)", color: "#111111" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

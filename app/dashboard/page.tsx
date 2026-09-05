@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { STORAGE_KEYS } from "@/lib/constants";
-import { clearAllIkigai, exportAll, getJSON, storageAvailable } from "@/lib/storage";
+import { asArray, clearAllIkigai, exportAll, getJSON, getValidated, isAssessmentResultLike, storageAvailable } from "@/lib/storage";
 import { planProgress } from "@/data/plan-templates";
 import { REFLECTION_PROMPTS_EN } from "@/data/reflection-prompts";
 import { downloadJSON } from "@/lib/export-data";
@@ -19,11 +19,11 @@ export default function DashboardPage() {
   const [privateOk, setPrivateOk] = useState(true);
 
   useEffect(() => {
-    setResult(getJSON(STORAGE_KEYS.result, null));
-    setFlow(getJSON(STORAGE_KEYS.flow, []));
-    setJournal(getJSON(STORAGE_KEYS.journal, []));
-    setPlan(getJSON(STORAGE_KEYS.plan, null));
-    setCircle(getJSON(STORAGE_KEYS.circle, []));
+    setResult(getValidated<AssessmentResult | null>(STORAGE_KEYS.result, null, (v): v is AssessmentResult | null => v === null || isAssessmentResultLike(v)));
+    setFlow(asArray<FlowEntry>(getJSON<unknown>(STORAGE_KEYS.flow, [])));
+    setJournal(asArray<JournalEntry>(getJSON<unknown>(STORAGE_KEYS.journal, [])));
+    setPlan(getValidated<PlanDay[] | null>(STORAGE_KEYS.plan, null, (v): v is PlanDay[] | null => v === null || Array.isArray(v)));
+    setCircle(asArray<CircleEntry>(getJSON<unknown>(STORAGE_KEYS.circle, [])));
     setPrivateOk(storageAvailable());
     setReady(true);
   }, []);

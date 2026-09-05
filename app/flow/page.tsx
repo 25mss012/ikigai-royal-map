@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { STORAGE_KEYS } from "@/lib/constants";
-import { getJSON, setJSON } from "@/lib/storage";
+import { asArray, getJSON, setJSON } from "@/lib/storage";
 import { flowScore } from "@/lib/scoring";
 import { downloadJSON } from "@/lib/export-data";
 import { uid, todayISO } from "@/lib/utils";
@@ -16,7 +16,7 @@ export default function FlowPage() {
   const [form, setForm] = useState({ activity: "", date: todayISO(), timeOfDay: "morning", durationMin: 25, focus: 3, enjoyment: 3, difficulty: 3, confidence: 3, setting: "alone" as FlowEntry["setting"], notes: "" });
   const [error, setError] = useState("");
 
-  useEffect(() => { setEntries(getJSON<FlowEntry[]>(STORAGE_KEYS.flow, [])); setLoaded(true); }, []);
+  useEffect(() => { setEntries(asArray<FlowEntry>(getJSON<unknown>(STORAGE_KEYS.flow, []))); setLoaded(true); }, []);
   useEffect(() => { if (loaded) setJSON(STORAGE_KEYS.flow, entries); }, [entries, loaded]);
 
   const stats = useMemo(() => {

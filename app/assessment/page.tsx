@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 import { STORAGE_KEYS, DIMENSIONS } from "@/lib/constants";
-import { getJSON, setJSON } from "@/lib/storage";
+import { getValidated, setJSON } from "@/lib/storage";
 import { scoreAll } from "@/lib/scoring";
 import { usePrefs } from "@/components/providers";
 import { Button, Card, Notice, ProgressBar } from "@/components/ui";
@@ -21,7 +21,7 @@ export default function AssessmentPage() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const saved = getJSON<Record<string, AnswerValue>>(STORAGE_KEYS.answers, {});
+    const saved = getValidated<Record<string, AnswerValue>>(STORAGE_KEYS.answers, {}, (v): v is Record<string, AnswerValue> => v !== null && typeof v === "object" && !Array.isArray(v));
     setAnswers(saved);
     // resume at first unanswered if progress exists
     const idx = ASSESSMENT_QUESTIONS.findIndex((q) => saved[q.id] === undefined);

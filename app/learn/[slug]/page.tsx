@@ -25,6 +25,7 @@ export default function LearnSlug({ params }: { params: { slug: string } }) {
     <article className="mx-auto max-w-3xl px-4 py-12">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--gold-contrast)]">Essay {idx + 1} of 20</p>
       <h1 className="mt-2 text-4xl font-bold">{theme.titleEn}</h1>
+      <p className="mt-2 text-sm text-[var(--muted)]">{theme.titleTa} · Full Tamil translation in progress.</p>
       <div className="royal-divider my-6" aria-hidden="true" />
       {theme.bodyEn.map((p, i) => <p key={i} className="mb-4 leading-relaxed">{p}</p>)}
       <Card className="my-6 border-imperial/40">

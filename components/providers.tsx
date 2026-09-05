@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { STORAGE_KEYS } from "@/lib/constants";
-import { getJSON, setJSON } from "@/lib/storage";
+import { asRecord, getJSON, setJSON } from "@/lib/storage";
 import { t } from "@/data/translations";
 import type { Prefs } from "@/types";
 
@@ -20,7 +20,7 @@ export function Providers({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const saved = getJSON<Prefs>(STORAGE_KEYS.prefs, DEFAULTS);
+    const saved = asRecord(getJSON<unknown>(STORAGE_KEYS.prefs, {})) as Partial<Prefs>;
     const merged = { ...DEFAULTS, ...saved };
     // respect OS reduced motion on first run
     try {

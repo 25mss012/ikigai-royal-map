@@ -9,6 +9,7 @@ export default function LearnIndex() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <SectionHeading kicker="Learn" title="Twenty small essays" desc="Original, practical reflections. Each takes about 3 minutes." />
+      <p className="mx-auto mb-6 max-w-2xl rounded-2xl border border-[var(--border)] p-3 text-center text-sm text-[var(--muted)]">Essays are currently in English; full Tamil translation is being developed. Core navigation, the assessment, and plans are already bilingual.</p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {LEARNING_THEMES.map((t, i) => (
           <Link key={t.slug} href={`/learn/${t.slug}`} className="royal-card group p-6 hover:-translate-y-0.5 transition-transform">

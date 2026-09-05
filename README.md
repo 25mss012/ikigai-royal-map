@@ -9,7 +9,7 @@ A private, practical, accessible web companion inspired by general themes associ
 
 ## Stack
 
-Next.js 14 App Router · TypeScript strict · Tailwind CSS · Framer Motion (subtle) · Lucide React · Recharts (lazy) · Zod · localStorage persistence · `next/font` (Cormorant Garamond + Manrope). No paid APIs, DB, auth, AI, or keys.
+Next.js 14 App Router · TypeScript strict · Tailwind CSS · Lucide React · Recharts (lazy) · Zod · localStorage persistence · `next/font` (Cormorant Garamond + Manrope). No paid APIs, DB, auth, AI, or keys. CSS-only motion (respects `prefers-reduced-motion`).
 
 ## Features
 
@@ -65,7 +65,25 @@ EN + TA dictionary (`data/translations.ts`), header toggle, assessment/learn/pla
 - Manual: nav, mobile menu, 40Q answer/back/next/refresh/review/submit, provisional case, radar/wheel fallback, flow add/delete, journal CRUD/search/export, plan generate/done/skip/reschedule, circle ≤5, export/delete-all, lang/theme/motion toggles, keyboard-only, 200% zoom, blocked-storage fallback, print, 404, no console errors.
 - Copyright audit: `*.pdf` ignored; no book text Grep hits.
 
-See CHANGELOG.md for 1.0.0. Known limits: single-device storage; TA covers core strings (essays show EN body with TA titles); Recharts lazy — table fallback offline.
+See CHANGELOG.md. Known limits: single-device storage; TA covers core strings (essay bodies EN, full Tamil in progress); Recharts lazy — table fallback offline.
+
+## Deployment workflow
+
+Production branch is `main`. The Vercel project `ikigai-royal-map` is Git-connected (framework: Next.js, no env vars required):
+
+```bash
+git add .
+git commit -m "describe the change"
+git push origin main   # Vercel auto-builds and deploys main
+```
+
+Quality gates run on every push/PR via `.github/workflows/quality.yml` (`npm ci` → secret scan → `lint` → `typecheck` → `build`).
+
+## Security note: never commit GitHub, Vercel, API, database, or private credentials
+
+- All secrets stay out of the repo: `.env`, `.env*.local`, `*.pem`, and `*.pdf` are git-ignored; CI fails the build if a token pattern or blocked file type is tracked.
+- The app uses no backend, auth, or API keys — nothing secret belongs in client-side code or public assets.
+- A token removed from a file may still be valid: revoke/rotate it immediately from the provider dashboard (GitHub Settings → Developer settings → Tokens; Vercel Account → Tokens) and review where it was used.
 
 ## Future ideas
 
