@@ -7,6 +7,7 @@ import { getValidated, setJSON } from "@/lib/storage";
 import { scoreAll } from "@/lib/scoring";
 import { usePrefs } from "@/components/providers";
 import { Button, Card, Notice, ProgressBar } from "@/components/ui";
+import { DemoEntryButton } from "@/components/demo";
 import { cn } from "@/lib/utils";
 import type { AnswerValue } from "@/types";
 
@@ -66,6 +67,7 @@ export default function AssessmentPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Button data-testid="assessment-start" onClick={() => setStep({ kind: "q", index: 0 })}>{answeredCount > 0 ? `Continue (${answeredCount}/40)` : "Start"}</Button>
           {answeredCount > 0 && <Button variant="secondary" onClick={() => { setAnswers({}); setStep({ kind: "q", index: 0 }); }}>Restart</Button>}
+          {answeredCount === 0 && <DemoEntryButton />}
         </div>
         <div className="mt-6"><Notice>“I am not sure” is not scored as zero — it marks the question incomplete and your result provisional.</Notice></div>
       </div>

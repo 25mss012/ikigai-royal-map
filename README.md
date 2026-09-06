@@ -61,6 +61,7 @@ Scores are always labeled *current snapshots* and *temporary patterns* — never
 - Versioned export/import (`ikigai-export v1`, Zod-validated, preview + explicit replace-confirm, prefs opt-in)
 - Storage migration layer (`ikigai.v1.meta`): corrupt records reset singly with timestamped backups; valid data never wiped
 - Privacy/status dashboard card, accessibility settings, responsible-use & copyright pages, custom 404
+- Demo mode: one-click sample journey (real data snapshotted first, restored byte-for-byte on exit; banner always visible while active)
 
 ## Tamil + English Experience
 
@@ -72,8 +73,8 @@ Skip link, landmarks, heading order, visible focus rings, full keyboard operatio
 
 ## Testing & Quality
 
-- **51/51** Playwright Chromium E2E (navigation, mobile menu, 404, full assessment journey, results safety, flow math, plan lifecycle, journal CRUD/search/export, circle guard, dashboard, prefs, import robustness, Tamil journeys, mobile, print, dialog keyboard contract)
-- **18/18** `node:test` unit tests (migration + portability schemas)
+- **54/54** Playwright Chromium E2E (navigation, mobile menu, 404, full assessment journey, results safety, flow math, plan lifecycle, journal CRUD/search/export, circle guard, dashboard, prefs, import robustness, demo round-trip + data preservation, Tamil journeys, mobile, print, dialog keyboard contract)
+- **22/22** `node:test` unit tests (migration + portability schemas + demo bundle)
 - `npm run lint` clean · `npx tsc --noEmit` 0 errors · `npm run build` clean (**41 routes**)
 - **87.2 kB** shared JS · lazy-loaded charts · static essays · SVG-only artwork · `next/font`
 - Security headers verified live (`nosniff`, `Referrer-Policy`, `Permissions-Policy`, `SAMEORIGIN`); secret + copyright scans in CI

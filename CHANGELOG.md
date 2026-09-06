@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0 — 2026-09-06 (demo + portfolio readiness)
+- Safe demo mode: one-click sample journey (assessment intro + empty dashboard), persistent banner, exit restores real data byte-for-byte; 4 new unit tests proving bundle shape, score consistency, demo labeling, and no-prefs-overwrite.
+- Home 7-step journey strip (Discover→Continue) linking existing routes; About “Why this project exists” transformation section + book credit.
+- Portfolio docs: `CASE_STUDY.md`, `JUDGE_SUMMARY.md`, `DEMO_SCRIPT.md` (90s), `DEMO_SHOT_LIST.md`; README demo + updated counts.
+- Tests: 54/54 E2E (incl. demo round-trip + real-data preservation) + 22/22 unit, all green.
+
 ## 1.4.0 — 2026-09-06 (launch presentation)
 - README rewritten as a launch page: positioning as an original bilingual experience inspired by García & Miralles' *Ikigai*, Why-Built, Conceptual Foundation, user journey, Tamil/a11y/testing/technical sections, Credits, and real Visual Preview.
 - `docs/screenshots/` captured from the running app via `scripts/capture.mjs` (hero, home, assessment, results, Tamil, journal, print).

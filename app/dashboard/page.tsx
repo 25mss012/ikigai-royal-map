@@ -5,6 +5,7 @@ import { STORAGE_KEYS } from "@/lib/constants";
 import { asArray, clearAllIkigai, getJSON, getValidated, isAssessmentResultLike, storageAvailable } from "@/lib/storage";
 import { collectExport } from "@/lib/portability";
 import { ImportDialog } from "@/components/import-dialog";
+import { DemoEntryButton } from "@/components/demo";
 import { usePrefs } from "@/components/providers";
 import { planProgress } from "@/data/plan-templates";
 import { REFLECTION_PROMPTS_EN, REFLECTION_PROMPTS_TA } from "@/data/reflection-prompts";
@@ -136,7 +137,7 @@ export default function DashboardPage() {
           </div>
         </Card>
       </div>
-      {!hasAny && <div className="mt-4"><EmptyState title={s.emptyT} desc={s.emptyD} action={<Link href="/learn" className="rounded-full bg-midnight px-5 py-2.5 text-sm font-semibold text-champagne dark:bg-imperial dark:text-obsidian">{s.readOne}</Link>} /></div>}
+      {!hasAny && <div className="mt-4"><EmptyState title={s.emptyT} desc={s.emptyD} action={<span className="inline-flex flex-wrap justify-center gap-2"><Link href="/learn" className="rounded-full bg-midnight px-5 py-2.5 text-sm font-semibold text-champagne dark:bg-imperial dark:text-obsidian">{s.readOne}</Link><DemoEntryButton /></span>} /></div>}
     </div>
   );
 }

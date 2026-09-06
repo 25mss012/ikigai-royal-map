@@ -39,6 +39,16 @@ const FEATURES = [
   { href: "/circle", icon: Users, titleEn: "Support circle", titleTa: "துணை வட்டம்", descEn: "Five steady connections that hold your purpose.", descTa: "நோக்கத்தைத் தாங்கும் ஐந்து நிலையான தொடர்புகள்." },
 ];
 
+const JOURNEY = [
+  { href: "/learn", en: "Discover", ta: "அறிக", descEn: "Read a 3-minute essay", descTa: "3 நிமிடக் கட்டுரை" },
+  { href: "/assessment", en: "Reflect", ta: "சிந்தி", descEn: "Answer gentle questions", descTa: "மென்மையான கேள்விகள்" },
+  { href: "/assessment", en: "Assess", ta: "மதிப்பிடு", descEn: "40 questions, ~10 min", descTa: "40 கேள்விகள், ~10 நிமிடம்" },
+  { href: "/assessment/results", en: "Understand", ta: "புரிந்துகொள்", descEn: "See your pattern map", descTa: "உங்கள் வடிவ வரைபடம்" },
+  { href: "/journal", en: "Journal", ta: "பதிவு", descEn: "Write 5 honest lines", descTa: "5 நேர்மையான வரிகள்" },
+  { href: "/plan", en: "Plan", ta: "திட்டம்", descEn: "One small step a day", descTa: "நாளுக்கு ஒரு சிறு அடி" },
+  { href: "/dashboard", en: "Continue", ta: "தொடர்", descEn: "Recalibrate anytime", descTa: "எப்போதும் சரிசெய்க" },
+];
+
 export default function Home() {
   return (
     <div>
@@ -79,6 +89,23 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Your journey */}
+      <section aria-label="Your journey" className="mx-auto max-w-6xl px-4 pt-12">
+        <ol className="grid gap-2 sm:grid-cols-4 lg:grid-cols-7">
+          {JOURNEY.map((s, i) => (
+            <li key={s.en} className="min-w-0">
+              <Link href={s.href} className="royal-card group flex h-full items-start gap-3 p-4">
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-midnight text-sm font-bold text-champagne dark:bg-imperial dark:text-obsidian" aria-hidden="true">{i + 1}</span>
+                <span className="min-w-0">
+                  <span className="block break-words font-bold group-hover:underline"><LangText en={s.en} ta={s.ta} /></span>
+                  <span className="block break-words text-xs text-[var(--muted)]"><LangText en={s.descEn} ta={s.descTa} /></span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* Four areas */}

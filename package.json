@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test:unit": "tsx --test tests/unit/migrate.test.ts tests/unit/portability.test.ts",
+    "test:unit": "tsx --test tests/unit/migrate.test.ts tests/unit/portability.test.ts tests/unit/demo.test.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
