@@ -4,27 +4,39 @@
 
 An original bilingual English–Tamil interactive experience inspired by general themes associated with Ikigai.
 
-[![Release](https://img.shields.io/github/v/release/25mss012/ikigai-royal-map)](https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0)
+[![Release](https://img.shields.io/github/v/release/25mss012/ikigai-royal-map)](https://github.com/25mss012/ikigai-royal-map/releases/latest)
 [![Quality](https://github.com/25mss012/ikigai-royal-map/actions/workflows/quality.yml/badge.svg)](https://github.com/25mss012/ikigai-royal-map/actions/workflows/quality.yml)
 [![E2E](https://github.com/25mss012/ikigai-royal-map/actions/workflows/e2e.yml/badge.svg)](https://github.com/25mss012/ikigai-royal-map/actions/workflows/e2e.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**[Live Demo](https://ikigai-royal-map.vercel.app)** · **[Source Code](https://github.com/25mss012/ikigai-royal-map)** · **[Latest Release](https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0)**
+**[Live Demo](https://ikigai-royal-map.vercel.app)** · **[Source Code](https://github.com/25mss012/ikigai-royal-map)** · **[Latest Release](https://github.com/25mss012/ikigai-royal-map/releases/latest)**
+
+<details>
+<summary><strong>Contents</strong></summary>
+
+- [Visual preview](#visual-preview) · [What it is](#what-it-is) · [Why it exists](#why-it-exists)
+- [Conceptual foundation](#conceptual-foundation) · [How the user journey works](#how-the-user-journey-works) · [Key features](#key-features)
+- [English + Tamil](#english--tamil) · [Demo mode](#demo-mode) · [Privacy and responsible use](#privacy-and-responsible-use)
+- [Engineering highlights](#engineering-highlights) · [Architecture](#architecture) · [Project structure](#project-structure)
+- [Quality and testing](#quality-and-testing) · [Quick start](#quick-start) · [Documentation map](#documentation-map)
+- [Release information](#release-information) · [Roadmap](#roadmap) · [Inspiration and attribution](#inspiration-and-attribution)
+
+</details>
 
 An original bilingual English–Tamil interactive experience that helps people reflect on energy, strengths, contribution, meaningful activity, and their next small step.
 
 ## Visual preview
 
-Real captures from the running app — click through to try each screen live:
+Real captures from the running app — click any image to try that screen live:
 
-[![Home — beginning the journey](docs/screenshots/hero.png)](https://ikigai-royal-map.vercel.app)
-[![Assessment — guided self-reflection](docs/screenshots/assessment.png)](https://ikigai-royal-map.vercel.app/assessment)
-[![Results — a current reflection snapshot](docs/screenshots/results.png)](https://ikigai-royal-map.vercel.app/assessment/results)
-[![Tamil — bilingual access](docs/screenshots/tamil.png)](https://ikigai-royal-map.vercel.app/learn)
-[![Plan — turning reflection into action](docs/screenshots/home.png)](https://ikigai-royal-map.vercel.app/plan)
-[![Journal — private ongoing reflection](docs/screenshots/journal.png)](https://ikigai-royal-map.vercel.app/journal)
-
-*Home — beginning the journey · Assessment — guided self-reflection · Results — a current reflection snapshot · Tamil — bilingual access · Plan — turning reflection into action · Journal — private ongoing reflection.*
+| | |
+|---|---|
+| [![Home — beginning the journey](docs/screenshots/hero.png)](https://ikigai-royal-map.vercel.app) | [![Assessment — guided self-reflection](docs/screenshots/assessment.png)](https://ikigai-royal-map.vercel.app/assessment) |
+| *Home — beginning the journey* | *Assessment — guided self-reflection* |
+| [![Results — a current reflection snapshot](docs/screenshots/results.png)](https://ikigai-royal-map.vercel.app/assessment/results) | [![Tamil — bilingual access](docs/screenshots/tamil.png)](https://ikigai-royal-map.vercel.app/learn) |
+| *Results — a current reflection snapshot* | *Tamil — bilingual access* |
+| [![Plan — turning reflection into action](docs/screenshots/home.png)](https://ikigai-royal-map.vercel.app/plan) | [![Journal — private ongoing reflection](docs/screenshots/journal.png)](https://ikigai-royal-map.vercel.app/journal) |
+| *Plan — turning reflection into action* | *Journal — private ongoing reflection* |
 
 More captures (full homepage, print stylesheet) live in [`docs/screenshots/`](docs/screenshots/).
 
@@ -156,6 +168,9 @@ flowchart TD
 
 ## Project structure
 
+<details>
+<summary>Repository layout</summary>
+
 ```text
 app/          Routes and page experiences
 components/   Reusable UI components
@@ -167,7 +182,12 @@ docs/         Case study, demo materials, screenshots
 public/       Static assets
 ```
 
+</details>
+
 ## Quality and testing
+
+<details>
+<summary>Verified quality table (all green)</summary>
 
 | Check | Result |
 |---|---|
@@ -182,6 +202,8 @@ public/       Static assets
 | Accessibility checks | Keyboard/SR/contrast/motion/size/zoom behaviors intact |
 | Security scan | No secrets/tokens/keys in tree or history; headers live |
 | Copyright scan | No book text, artwork, PDFs, or blocked file types |
+
+</details>
 
 ## Quick start
 
@@ -215,6 +237,9 @@ Screenshot regeneration: `node scripts/capture.mjs` (needs prod server; see scri
 
 ## Documentation map
 
+<details>
+<summary>All project documents</summary>
+
 | Document | Purpose |
 |---|---|
 | `docs/CASE_STUDY.md` | Project motivation, design, and implementation story |
@@ -225,9 +250,11 @@ Screenshot regeneration: `node scripts/capture.mjs` (needs prod server; see scri
 | `docs/screenshots/` | Real product visuals |
 | `CHANGELOG.md` | Release history |
 
+</details>
+
 ## Release information
 
-**[v1.5.0](https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0)** — demo mode, journey strip, About story, portfolio docs (see [CHANGELOG.md](CHANGELOG.md) for full history back to 1.0.0).
+**[v1.6.0](https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.6.0)** — repository presentation polish: redesigned README, social preview image + metadata, verified metrics (see [CHANGELOG.md](CHANGELOG.md) for full history back to 1.0.0).
 
 ## Roadmap
 
@@ -255,5 +282,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) — calm, accessible, private contributio
 
 - **Live Demo:** https://ikigai-royal-map.vercel.app
 - **Source Code:** https://github.com/25mss012/ikigai-royal-map
-- **Latest Release:** https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0
+- **Latest Release:** https://github.com/25mss012/ikigai-royal-map/releases/latest
 - **Privacy:** https://ikigai-royal-map.vercel.app/privacy · **Accessibility:** https://ikigai-royal-map.vercel.app/accessibility · **Responsible use:** https://ikigai-royal-map.vercel.app/responsible-use
