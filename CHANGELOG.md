@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0 — 2026-09-06 (launch presentation)
+- README rewritten as a launch page: positioning as an original bilingual experience inspired by García & Miralles' *Ikigai*, Why-Built, Conceptual Foundation, user journey, Tamil/a11y/testing/technical sections, Credits, and real Visual Preview.
+- `docs/screenshots/` captured from the running app via `scripts/capture.mjs` (hero, home, assessment, results, Tamil, journal, print).
+- Corrected docs facts: 21 essays, 51 E2E tests, full Tamil completion.
+- No application functionality changed.
+
 ## 1.3.0 — 2026-09-06 (launch refinement)
 - Full Tamil localization: homepage, about, all 21 essays, assessment, results (+ archetype glosses), flow, journal, plan, circle, dashboard, privacy, accessibility, responsible-use, import/export, validation, empty states, 404. Language switch never loses data.
 - Mobile-first: overflow guards, wrapping, viewport-safe dialogs; E2E width checks (320px suite, Tamil XL-text zoom case).
