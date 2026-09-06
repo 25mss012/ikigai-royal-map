@@ -1,118 +1,259 @@
-# IKIGAI — The Royal Map of Purpose
+# Ikigai — The Royal Map of Purpose
 
-> **Turn self-reflection into a map for meaningful living.**
+**Turn self-reflection into a map for meaningful living.**
 
-**Ikigai Royal Map is an original bilingual English–Tamil interactive self-reflection experience inspired by the ideas explored in Héctor García and Francesc Miralles' book *Ikigai: The Japanese Secret to a Long and Happy Life*.** It is a private, practical web companion — no account, no tracking, no backend — that helps anyone discover what gives their life meaning, energy, connection, and direction.
+An original bilingual English–Tamil interactive experience inspired by general themes associated with Ikigai.
 
-- **Live:** https://ikigai-royal-map.vercel.app
-- **Repo:** https://github.com/25mss012/ikigai-royal-map
+[![Release](https://img.shields.io/github/v/release/25mss012/ikigai-royal-map)](https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0)
+[![Quality](https://github.com/25mss012/ikigai-royal-map/actions/workflows/quality.yml/badge.svg)](https://github.com/25mss012/ikigai-royal-map/actions/workflows/quality.yml)
+[![E2E](https://github.com/25mss012/ikigai-royal-map/actions/workflows/e2e.yml/badge.svg)](https://github.com/25mss012/ikigai-royal-map/actions/workflows/e2e.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Visual Preview
+**[Live Demo](https://ikigai-royal-map.vercel.app)** · **[Source Code](https://github.com/25mss012/ikigai-royal-map)** · **[Latest Release](https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0)**
 
-Real captures from the running app (`docs/screenshots/`, regenerated with `node scripts/capture.mjs`):
+An original bilingual English–Tamil interactive experience that helps people reflect on energy, strengths, contribution, meaningful activity, and their next small step.
 
-![Hero — purpose is a direction, not a destination](docs/screenshots/hero.png)
-![Homepage — lenses, loop, tools](docs/screenshots/home.png)
-![Assessment — gentle 1–5 questions with “not sure”](docs/screenshots/assessment.png)
-![Results — Ikigai map, scores, experiments](docs/screenshots/results.png)
-![Full Tamil experience](docs/screenshots/tamil.png)
-![Private journal](docs/screenshots/journal.png)
-![Print-friendly results](docs/screenshots/print.png)
+## Visual preview
 
-## Why I Built This
+Real captures from the running app — click through to try each screen live:
 
-Books end; life doesn't. Reading about purpose is easy, but *practicing* it is hard — especially across languages, ages, and life situations. This project transforms the book's ideas into an interactive digital experience: instead of turning pages, you answer gentle questions, see your own pattern drawn as a map, run tiny real-world experiments, write private reflections, and build a 30-day plan. The philosophy stays the same; the medium becomes something you can touch, revisit, and act on — in English or Tamil, in five minutes or fifty.
+[![Home — beginning the journey](docs/screenshots/hero.png)](https://ikigai-royal-map.vercel.app)
+[![Assessment — guided self-reflection](docs/screenshots/assessment.png)](https://ikigai-royal-map.vercel.app/assessment)
+[![Results — a current reflection snapshot](docs/screenshots/results.png)](https://ikigai-royal-map.vercel.app/assessment/results)
+[![Tamil — bilingual access](docs/screenshots/tamil.png)](https://ikigai-royal-map.vercel.app/learn)
+[![Plan — turning reflection into action](docs/screenshots/home.png)](https://ikigai-royal-map.vercel.app/plan)
+[![Journal — private ongoing reflection](docs/screenshots/journal.png)](https://ikigai-royal-map.vercel.app/journal)
 
-## Conceptual Foundation
+*Home — beginning the journey · Assessment — guided self-reflection · Results — a current reflection snapshot · Tamil — bilingual access · Plan — turning reflection into action · Journal — private ongoing reflection.*
 
-All wording below is original. The app draws on these general ideas from the book and reinterprets each as a tool:
+More captures (full homepage, print stylesheet) live in [`docs/screenshots/`](docs/screenshots/).
 
-| Book-inspired idea | Original interpretation in this app |
+## What it is
+
+A private, practical, bilingual web experience for exploring purpose through reflection, small experiments, meaningful activity, planning, and connection. No account, no tracking, no backend — your data never leaves your browser.
+
+**Who it is for:** students · career changers · professionals seeking meaning · creators · entrepreneurs · caregivers · retired people · anyone in an uncertain transition · anyone who wants one next meaningful step.
+
+**What users can do:** learn from 20 original essays · complete a 40-question guided assessment · view a calculated reflection pattern · track flow activities · follow a 30-day plan · keep a private journal · build a support circle · export/import personal data · use English or Tamil · explore without an account, or preview everything instantly in demo mode.
+
+**What users receive:** a clearer current snapshot (scores are reflection aids, never a verdict on identity) · practical experiment suggestions · reflection prompts · a small action plan · a private place to continue.
+
+## Why it exists
+
+I did not want to build another website that only explains Ikigai. I wanted to turn the ideas that inspired me into something people could actively explore, question, and apply through small everyday actions.
+
+## Conceptual foundation
+
+All wording below is original. Broad conceptual inspirations — not copied book content, and not claims that the app scientifically measures Ikigai:
+
+| Theme that inspired the project | Original product interpretation |
 |---|---|
-| Ikigai as a reason for being / reason to get up | Daily-meaning essay + morning journal prompts; purpose framed as direction, not destination |
-| The four-area diagram (love, skill, need, value) | Four reflection *lenses* — prompts, not a test of worth; the artwork is an original SVG wheel, never the book's diagram |
-| Flow and deep engagement | Flow Lab: focus × joy × challenge-fit scoring with friction-reduction advice |
-| Staying active and engaged | 30-day plan of small Explore/Learn/Create/Serve/Connect/Restore/Reflect steps |
-| Community and belonging | Private 5-entry support circle built on reciprocity (no social network) |
-| Mindfulness and presence | Attention essays + 3-breath micro-practices, framed as wellbeing info, not therapy |
-| Resilience through difficulty | Imperfection-positive copy (“a skipped day is data”), provisional results, crisis signposting |
-| Continuous learning | 21 original essays, each ending in a 5-minute activity and reflection question |
+| Purpose and daily meaning | Reflection prompts and a current-purpose snapshot |
+| Meaningful activity | Activity exploration and practical experiments |
+| Flow | Flow Lab and engagement tracking |
+| Community and connection | Private support-circle exercise |
+| Mindfulness and presence | Reflection prompts and attention-oriented activities |
+| Continued growth | 30-day plan and learning journey |
+| Resilience and imperfection | Non-judgmental progress language and flexible planning |
 
-Scores are always labeled *current snapshots* and *temporary patterns* — never diagnoses, destinies, or personality types.
+## How the user journey works
 
-## How It Works
+```mermaid
+flowchart TD
+    A[Discover] --> B[Learn]
+    B --> C[Reflect]
+    C --> D[Assess]
+    D --> E[Understand]
+    E --> F[Plan]
+    F --> G[Continue]
+```
 
-**Discover → Reflect → Assess → Understand → Journal → Plan → Continue**
+- **Discover:** understand the purpose of the experience.
+- **Learn:** explore 20 original bilingual essays.
+- **Reflect:** think about energy, values, skills, and contribution.
+- **Assess:** answer 40 guided questions (1–5 scale plus “I am not sure”; autosaves, pause/resume, review screen).
+- **Understand:** view dimension scores, balance, radar + circular map (always with text tables), strongest/growth areas, 3 small experiments, prompts.
+- **Plan:** try small realistic actions across 7 categories; Day 30 synthesizes learning.
+- **Continue:** journal, track flow, tend your circle, export/import, recalibrate anytime.
 
-1. **Discover** — read 21 short bilingual essays (insight + try-today + reflection each).
-2. **Reflect** — answer 40 gentle questions across 5 dimensions (1–5 scale plus “I am not sure”; autosaves, pause/resume, review screen).
-3. **Assess** — submit for an honest snapshot: dimension scores, balance, overall indicator, provisional flag when incomplete.
-4. **Understand** — explore your radar chart + circular Ikigai map (always paired with text tables), strongest/growth areas, 3 small experiments, and reflection prompts.
-5. **Journal** — keep private mood/energy/purpose entries with tags, gratitude, search, and JSON/Markdown export.
-6. **Plan** — generate a 30-day plan; complete, kindly skip, or reschedule days; Day 30 synthesizes learning.
-7. **Continue** — track flow, tend your support circle, export/import your data, and recalibrate anytime. Purpose can change; the map updates with you.
+## Key features
 
-## Key Features
+### Reflection
+- 20 original bilingual essays (insight + try-today + reflection each)
+- Guided prompts throughout; 40-question assessment with transparent math
+- Current results with 8 temporary archetype labels (a snapshot, not an identity)
 
-- 40-question assessment (5 dims × 8) with transparent math: `avg = sum/n`, `pct = ((avg−1)/4)×100`, `balance = 100−(max−min)`; 8 temporary archetypes
-- Interactive radar + SVG Ikigai wheel with screen-reader text fallbacks; print/JSON export; share-safe summary (never leaks journal text)
-- Flow Lab (`challengeFit = 5−|difficulty−confidence|`), weekly trends, “reduce friction” coaching
-- 30-day plan with Day-30 synthesis; private journal with crisis notice; 5-entry support circle (now editable)
-- Versioned export/import (`ikigai-export v1`, Zod-validated, preview + explicit replace-confirm, prefs opt-in)
-- Storage migration layer (`ikigai.v1.meta`): corrupt records reset singly with timestamped backups; valid data never wiped
-- Privacy/status dashboard card, accessibility settings, responsible-use & copyright pages, custom 404
-- Demo mode: one-click sample journey (real data snapshotted first, restored byte-for-byte on exit; banner always visible while active)
+### Action
+- 30-day purpose plan (complete / kindly skip / reschedule)
+- Small reversible experiments; Flow Lab with challenge-fit scoring
+- Day-30 synthesis
 
-## Tamil + English Experience
+### Private continuity
+- Local browser storage (`ikigai.v1.*`) with in-memory fallback
+- Private journal (search, tags, JSON/Markdown export, crisis notice)
+- Editable 5-entry support circle; versioned JSON export/import with preview + explicit replace-confirm; storage migration with per-key repair and backups; delete-all controls
 
-~100% of user-facing UI in both languages: navigation, homepage, all 21 essays (body, insight, activities, reflections), all 40 questions + examples + scale, results (headings, archetype glosses, experiments, prompts), every tool label, validation/empty-state/import/export messages, trust pages, 404. “Ikigai” is kept as-is (no misleading single-word equivalent). `ta-IN`/`en-GB` date formatting. Switching languages never loses saved data.
+### Inclusive access
+- Full English + Tamil UI; responsive 320px→desktop; keyboard-first with dialog focus trap + Escape + focus return; screen-reader chart alternatives; reduced motion, high contrast, 3 text sizes, light/dark; print-friendly results/plan/journal/circle
 
-## Accessibility & Responsive Design
+### Presentation and reliability
+- One-click demo mode (sample journey, real data snapshotted and restored)
+- 22 unit + 54 browser E2E tests; GitHub Actions on every push; automatic Vercel deployment; secret + copyright scans
 
-Skip link, landmarks, heading order, visible focus rings, full keyboard operation (incl. dialog focus trap + Escape + focus return), 44px touch targets, labelled errors announced via `role=alert`, no colour-only meaning, chart text alternatives, reduced-motion + high-contrast + 3 text sizes + light/dark, 200%-zoom-safe. Verified layouts from **320px to desktop** (automated overflow guards at 320px, incl. Tamil XL-text).
+## English + Tamil
 
-## Testing & Quality
+The experience is designed for both English and Tamil users, with language switching that preserves stored progress.
 
-- **54/54** Playwright Chromium E2E (navigation, mobile menu, 404, full assessment journey, results safety, flow math, plan lifecycle, journal CRUD/search/export, circle guard, dashboard, prefs, import robustness, demo round-trip + data preservation, Tamil journeys, mobile, print, dialog keyboard contract)
-- **22/22** `node:test` unit tests (migration + portability schemas + demo bundle)
-- `npm run lint` clean · `npx tsc --noEmit` 0 errors · `npm run build` clean (**41 routes**)
-- **87.2 kB** shared JS · lazy-loaded charts · static essays · SVG-only artwork · `next/font`
-- Security headers verified live (`nosniff`, `Referrer-Policy`, `Permissions-Policy`, `SAMEORIGIN`); secret + copyright scans in CI
-- **18/18 production routes + custom 404 verified** on the live deployment
+| Area | English | Tamil |
+|---|---:|---:|
+| Core interface | Available | Available |
+| Assessment (40 Qs) | Available | Available |
+| Learning content (20 essays) | Available | Available |
+| Results, plan, journal, circle, dashboard | Available | Available |
+| Dates | en-GB | ta-IN |
+| Stored data on switch | Preserved | Preserved |
+| SEO metadata | English | English (by design) |
 
-## Technical Highlights
+“Ikigai” is kept as-is — never forced into a misleading single-word equivalent.
 
-Next.js 14 App Router · TypeScript strict · Tailwind CSS · Lucide icons · Recharts (lazy) · Zod · versioned localStorage (`ikigai.v1.*`) with in-memory fallback · CSS-only motion · zero backend/auth/analytics/keys. CI: `quality.yml` (secret scan → lint → typecheck → unit → build) + `e2e.yml` (Chromium, full browser suite, reports on failure only). Capture script `scripts/capture.mjs` regenerates launch screenshots from the real app.
+## Demo mode
+
+The assessment intro and empty dashboard offer **Try with sample data**: clearly labeled sample answers, results, flow, journal, and circle entries load instantly, with a persistent banner while active. Your real data is snapshotted first and restored byte-for-byte when you exit. While demo mode is active, export reflects the sample demonstration data shown in the demo.
+
+## Privacy and responsible use
+
+- No account required; personal data lives only in your browser (localStorage is convenient, **not encrypted**)
+- Export, import, and delete your data anytime; nothing is publicly shared; no AI service, analytics, or trackers
+- The assessment is **not** a psychological or medical test; results are reflection aids, not identity labels
+- No promises about happiness, health, success, or longevity
+- Independent, unofficial project inspired by general themes — see [Credits](#inspiration-and-attribution) and [`app/responsible-use`](https://ikigai-royal-map.vercel.app/responsible-use)
+
+## Engineering highlights
+
+Next.js 14 App Router · TypeScript strict · Tailwind · Lucide · lazy Recharts · Zod. **Local-first persistence** keeps the experience usable without accounts or a backend, while versioned export/import moves data between devices manually. **Shape guards + migration** repair single corrupt records instead of wiping users. **Lazy charts with text fallbacks** keep first load at 87.2 kB shared JS. **Bilingual architecture** (dictionary + per-field EN/TA content) means translation is data, not forks. **Print styles** turn results/plan/journal/circle into clean black-on-white pages. **Demo isolation** reuses the backup/migration layer, so sampling can't destroy real data.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A[User] --> B[Next.js Pages and Components]
+    B --> C[Assessment and Reflection Logic]
+    C --> D[Results and Recommendations]
+    B --> E[Flow, Journal, Plan, Circle]
+    D --> F[Browser-local Persistence]
+    E --> F
+    F --> G[Validated Export and Import]
+```
+
+- `app/` — routes and page-level experiences
+- `components/` — reusable UI (cards, charts, dialogs, banner, header/footer)
+- `data/` — questions, essays, prompts, translations, plan templates
+- `lib/` — scoring, storage, migration, validation, portability, demo
+- `tests/` — unit tests · `e2e/` — browser tests + fixtures
+- `docs/` — case study, judge summary, demo script/shot list, screenshots
+- `public/` — `icon.svg`, `favicon.ico`, social preview
+- `.github/workflows/` — `quality.yml`, `e2e.yml`
+
+## Project structure
+
+```text
+app/          Routes and page experiences
+components/   Reusable UI components
+data/         Questions, essays, prompts, translations
+lib/          Scoring, storage, migration, validation, portability
+tests/        Unit tests
+e2e/          Browser tests
+docs/         Case study, demo materials, screenshots
+public/       Static assets
+```
+
+## Quality and testing
+
+| Check | Result |
+|---|---|
+| Unit tests | **22/22** (`node:test`: migration, portability, demo bundle) |
+| Browser E2E tests | **54/54** Playwright Chromium (incl. demo round-trip, Tamil, mobile, print, keyboard contract) |
+| Lint | `npm run lint` clean |
+| TypeScript | `npx tsc --noEmit` 0 errors |
+| Production build | Clean (33 page routes incl. 20 essay pages) |
+| GitHub Actions | Quality + E2E green on `main` |
+| Deployment | Vercel READY, Git-connected auto-deploy, zero env vars |
+| Responsive testing | 320px→desktop verified, automated overflow guards |
+| Accessibility checks | Keyboard/SR/contrast/motion/size/zoom behaviors intact |
+| Security scan | No secrets/tokens/keys in tree or history; headers live |
+| Copyright scan | No book text, artwork, PDFs, or blocked file types |
+
+## Quick start
+
+Prerequisites: **Node 20+**, npm, Git.
 
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run lint && npm run typecheck && npm run test:unit
-npm run test:e2e:install  # one-time Chromium
-npm run build && npm run test:e2e
-npm run start
 ```
 
-## Data portability and recovery
-
-Format `{ "format": "ikigai-export", "version": 1, ... }` — your data only. Import: JSON-only, 5 MB cap, Zod-validated, per-section preview; **confirming replaces** matching browser data (download current first; prefs restored only if ticked). Invalid files leave data untouched. localStorage is convenient, not encrypted — export before clearing browser data or changing devices.
-
-## Deployment workflow
-
-Production branch is `main`; Vercel project `ikigai-royal-map` is Git-connected (Next.js auto-detected, no env vars):
+Validation (exact scripts from `package.json`):
 
 ```bash
-git add . && git commit -m "describe the change" && git push origin main
+npm run lint
+npx tsc --noEmit
+npm run test:unit
+npm run test:e2e:install  # one-time Chromium download
+npm run build             # E2E runs against the production build
+npm run test:e2e
+npm run test:e2e:report  # open last HTML report
 ```
 
-## Limitations
+Production:
 
-Single-device storage (by design — no server); SEO metadata in English; E2E covers Chromium; print tested via print-media emulation; no offline support (installable PWA metadata only, deliberately no service worker); not medical, career, financial, or religious advice.
+```bash
+npm run build
+npm run start        # http://localhost:3000
+```
 
-## Credits / Inspiration
+Screenshot regeneration: `node scripts/capture.mjs` (needs prod server; see script header).
 
-Conceptually inspired by ***Ikigai: The Japanese Secret to a Long and Happy Life* by Héctor García and Francesc Miralles** — thank you for the ideas about purpose, flow, community, and resilience. This is an **independent, unofficial interpretation**: not created, endorsed, or sponsored by the authors or publisher. No text, illustrations, or diagrams from the book are reproduced here; every essay, question, score, and visual is original. If the book moved you, please buy and read it.
+## Documentation map
 
-## Security note: never commit credentials
+| Document | Purpose |
+|---|---|
+| `docs/CASE_STUDY.md` | Project motivation, design, and implementation story |
+| `docs/JUDGE_SUMMARY.md` | Concise evaluation-oriented overview |
+| `docs/DEMO_SCRIPT.md` | Spoken 90-second walkthrough |
+| `docs/DEMO_SHOT_LIST.md` | Screen-recording sequence |
+| `docs/GITHUB_METADATA.md` | Suggested repo description, topics, social-preview steps |
+| `docs/screenshots/` | Real product visuals |
+| `CHANGELOG.md` | Release history |
 
-`.env`, `*.pem`, `*.pdf` are ignored; CI fails on token patterns or blocked file types. The app needs no secrets at all. A removed token may still be valid — rotate it from the provider dashboard immediately. (Maintainer reminder: rotate any credential ever pasted outside its dashboard.)
+## Release information
+
+**[v1.5.0](https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0)** — demo mode, journey strip, About story, portfolio docs (see [CHANGELOG.md](CHANGELOG.md) for full history back to 1.0.0).
+
+## Roadmap
+
+- **Exploring:** additional language coverage beyond Tamil
+- **Planned:** opt-in gentle reminders (no streak pressure)
+- **Planned:** more import/export conveniences
+- **Future:** PWA/offline support only after a full privacy review
+- **Future:** wider usability testing across age groups
+
+Ideas, not promises — privacy and simplicity come first.
+
+## Inspiration and attribution
+
+Conceptually inspired by ***Ikigai: The Japanese Secret to a Long and Happy Life* by Héctor García and Francesc Miralles** — thank you for the ideas about purpose, flow, community, and resilience. **This is an independent, unofficial project inspired by general themes associated with Ikigai. It is not affiliated with, sponsored by, or endorsed by the authors or publisher.** No chapters, passages, illustrations, tables, diagrams, or PDFs from the book are reproduced; every essay, question, score, and visual is original. If the book moved you, please buy and read it.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) — calm, accessible, private contributions only: no book text, no accounts-required features, keyboard + screen-reader support for every interaction, natural Tamil, and `lint` + `tsc` + `build` green before pushing. Security issues: see [SECURITY.md](SECURITY.md).
+
+## License
+
+[MIT](LICENSE) — © 2026 Ikigai — The Royal Map of Purpose contributors. Original educational content; see license file for terms.
+
+## Final links
+
+- **Live Demo:** https://ikigai-royal-map.vercel.app
+- **Source Code:** https://github.com/25mss012/ikigai-royal-map
+- **Latest Release:** https://github.com/25mss012/ikigai-royal-map/releases/tag/v1.5.0
+- **Privacy:** https://ikigai-royal-map.vercel.app/privacy · **Accessibility:** https://ikigai-royal-map.vercel.app/accessibility · **Responsible use:** https://ikigai-royal-map.vercel.app/responsible-use

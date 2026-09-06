@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.0 — 2026-09-06 (repository presentation)
+- README redesigned: hero with badges + live/source/release links, clickable visual preview, plain-language product story, Mermaid journey + architecture diagrams, grouped features, Tamil table, demo/privacy/engineering sections, verified quality table, docs map, roadmap, credits.
+- Social preview: original 1280×640 `public/social-preview.png` (~116 KB, app palette, no book artwork) rendered via `scripts/og-shot.mjs` from `scripts/og-card.html`; wired as `og:image`/Twitter image; `docs/GITHUB_METADATA.md` holds description, topics, and manual upload steps.
+- Corrected essay count 21→20 (verified: 20 slugs) everywhere.
+- Removed unused scaffold assets (`public/next.svg`, `public/vercel.svg`). No application logic changed.
+
 ## 1.5.0 — 2026-09-06 (demo + portfolio readiness)
 - Safe demo mode: one-click sample journey (assessment intro + empty dashboard), persistent banner, exit restores real data byte-for-byte; 4 new unit tests proving bundle shape, score consistency, demo labeling, and no-prefs-overwrite.
 - Home 7-step journey strip (Discover→Continue) linking existing routes; About “Why this project exists” transformation section + book credit.
